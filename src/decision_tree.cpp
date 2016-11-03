@@ -1,7 +1,7 @@
 #include "decision_tree.h"
 
 /*
-* @function CreatTree 预处理函数，负责读入数据，并生成信息矩阵和属性标记
+* @common CreatTree 预处理函数，负责读入数据，并生成信息矩阵和属性标记
 * @param: filename 文件名
 * @param: readLineNum 可使用行set
 * @param: readClumNum 可用属性set
@@ -103,7 +103,7 @@ int DecisionTree::statister(vector<vector<string>>& infos, vector<attributes*>& 
 }
 
 /*
-* @function CreatTree 递归DFS创建并输出决策树
+* @common CreatTree 递归DFS创建并输出决策树
 * @param: treeHead 为生成的决定树
 * @param: statTree 为状态树，此树动态更新，但是由于是DFS对数据更新，所以不必每次新建状态树
 * @param: infos 数据信息
@@ -186,7 +186,7 @@ void DecisionTree::CreatTree(TreeNode* treeHead, vector<attributes*>& statTree, 
 	}
 }
 /*
-* @function compuDecisiNote 计算C4.5
+* @common compuDecisiNote 计算C4.5
 * @param: statTree 为状态树，此树动态更新，但是由于是DFS对数据更新，所以不必每次新建状态树
 * @param: deciNum Yes的数据量
 * @param: lineNum 计算set的行数
@@ -226,7 +226,7 @@ int DecisionTree::compuDecisiNote(vector<attributes*>& statTree, int deciNum, in
 	return max_attribute;
 }
 /*
-* @function Info_attr info_D 
+* @common Info_attr info_D 
 * @param: deciNum 有效信息数
 * @param: sum 总信息量
 * @return double 总信息量比例
@@ -243,7 +243,7 @@ double DecisionTree::info_D(int deciNum, int sum)
 	return -result;
 }
 /*
-* @function Info_attr 总信息量
+* @common Info_attr 总信息量
 * @param: deciNum 有效信息数
 * @param: sum 总信息量
 * @return double 
@@ -265,7 +265,7 @@ double DecisionTree::Info_attr(map<string, attrItem*>& attriItem, double& splitI
 	return result;
 }
 /*
-* @function resetStatTree 清理状态树
+* @common resetStatTree 清理状态树
 * @param: statTree 状态树
 * @param: readClumNum 需要清理的属性set
 * @return void

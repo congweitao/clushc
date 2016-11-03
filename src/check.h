@@ -3,7 +3,7 @@
  *
  */
 
-#include "function.h"
+#include "common.h"
 
 #define FILEPATH_MAX 1024
 #define STRING_MAX 1024

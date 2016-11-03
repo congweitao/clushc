@@ -4,14 +4,14 @@
  * Created On: 29th August 2016
  * Detail: To Check Single Node Health. 
  * Checks: loadavg, memory, cpu, ethernet, infiniband, cpu test, nfs mounts, nis, mcelog
- * Functions: You can load/unload any function you need to run or not to run.
+ * Functions: You can load/unload any common you need to run or not to run.
  * License: GPL 
  *
  */
 
 #include <unistd.h>
 #include <getopt.h>
-#include "function.h"
+#include "common.h"
 #include "check.h"
 
 
