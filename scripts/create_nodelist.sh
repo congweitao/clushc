@@ -12,8 +12,8 @@
 IP_LIST_TMP=$(grep -oP '\d+\.\d+\.\d+\.\d+' /etc/hosts)
 
 create_nodelist(){
-  rm -f ${INSTALL_PATH}/.nodelist_tmp
-  rm -f ${INSTALL_PATH}/nodelist
+  rm -f ${CLUSHC_PATH}/.nodelist_tmp
+  rm -f ${CLUSHC_PATH}/nodelist
   for  ip in ${IP_LIST_TMP[@]}
   do
      ping -c 1 -w 1 $ip >/dev/null 2>&1;
@@ -21,11 +21,11 @@ create_nodelist(){
         echo -e "[\033[34mWARNING\033[0m] Trying ssh $ip...(If processing holds on more than 5 sec, Press [Ctrl+C] to continue.)"
         ssh -q -o NumberOfPasswordPrompts=0 -o ConnectTimeout=2 $ip "hostname" >/dev/null 2>&1;
         if [ $? -eq 0 ];then
-           echo $(ssh $ip "hostname") >> ${INSTALL_PATH}/.nodelist_tmp
+           echo $(ssh $ip "hostname") >> ${CLUSHC_PATH}/.nodelist_tmp
         fi
      fi
   done
-  sort ${INSTALL_PATH}/.nodelist_tmp | uniq >> ${INSTALL_PATH}/nodelist;
+  sort ${CLUSHC_PATH}/.nodelist_tmp | uniq >> ${CLUSHC_PATH}/nodelist;
 }
 
 create_nodelist

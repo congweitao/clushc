@@ -13,7 +13,7 @@ int get_nodelist(char* PathList, char NodeList[NODE_NUM_MAX][NODE_WIDTH]){
    
    fp=fopen(PathList,"r");
    if (fp == NULL ){
-       printf("Nodelist file could not be opened.\n");
+       printf("\033[31m[ERROR]\033[0m  NodeList File Could not be Opened.\n");
        return -1;
    }
 
@@ -66,8 +66,7 @@ char* get_special_line(char* PathLog, int WhichLine){
 
    fp_log = fopen(PathLog,"r"); 
    if (  fp_log == NULL ){
-      printf("Log file could not be opened.\n");
-      printf("Make sure file %s exist.\n",PathLog);
+      printf("\033[31m[ERROR]\033[0m Make sure file %s exist.\n",PathLog);
       return "NO INFO";
     }
    else {
@@ -152,35 +151,38 @@ int get_row_num(const char* path, const char* item){
 }
 
 
+void setup_environment()
+{
+   /* Setup Clushc environment variables */
+   clushc_path = getenv("CLUSHC_PATH");
+   clushc_nodelist = getenv("CLUSHC_NODELIST");
+   clushc_scpfile = getenv("CLUSHC_SCP");
+   clushc_syncdo =  getenv("CLUSHC_SYNCDO");
+   clushc_syncfile = getenv("CLUSHC_SYNCFILE");
+   check_system = getenv("CLUSHC_CHECK_SYSTEM");
+   clushc_log = getenv("CLUSHC_LOG");
+   clushc_create_nodelist = getenv("CLUSHC_CREATE_NODELIST");
+}
+
 void usage()
 {
  
-printf("General usage:
-==============
-usage: clushc [-h] [-l NODELIST] [-o CHECK_STORAGE] [-n CHECK_NETWORK]
-              [--collect-info COLLECT_INFO] [--check-service CHECK_SERVICE]
-              [--check-bios CHECK_BIOS] [--check-firmware CHECK_FIRMWARE] [--version]
+   printf("General usage:\n"); 
+   printf("==============\n"); 
+   printf("usage: clushc [-h] [-l NODELIST] [-o CHECK_STORAGE] [-n CHECK_NETWORK]\n");
+   printf("              [--collect-info COLLECT_INFO] [--check-service CHECK_SERVICE]\n");
+   printf("              [--check-bios CHECK_BIOS] [--check-firmware CHECK_FIRMWARE] [--version]\n\n");
 
-Clushc administration tool
+   printf("Clushc administration tool\n\n");
 
-optional arguments:
-  -h, --help            request mon help
-  -i INPUT_FILE, --in-file INPUT_FILE
-                        input hosts file
-  --cluster CLUSTER     cluster name
-  --admin-socket ADMIN_SOCKET_NOPE
-                        you probably mean --admin-daemon
-  -s, --status          show cluster status
-  -w, --watch           watch live cluster changes
-  --watch-debug         watch debug events
-  --watch-info          watch info events
-  --watch-sec           watch security events
-  --watch-warn          watch warn events
-  --watch-error         watch error events
-  --version, -v         display version
-  --verbose             make verbose
-  --concise             make less verbose
+   printf("optional arguments:\n");
+   printf("  -h, --help            request mon help\n");
+   printf("  -i INPUT_FILE, --in-file INPUT_FILE\n");
+   printf("                        input hosts file\n");
+   printf("  --cluster CLUSTER     cluster name\n");
+   printf("                        you probably mean --admin-daemon\n");
+   printf("  --version, -v         display version\n\n");
 
-Clushc  Version 1.0.0 update 11/2/2016\n");
+   printf("Clushc  Version 1.0.0 update 11/2/2016\n");
 }
 

@@ -26,7 +26,7 @@ int clushc_network(
    char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
    char* name_checklog=(char *)malloc(STRING_MAX);
 
-   printf("---- Cluster Health Checking Infiniband ----\n");
+   printf("----\033[34m Cluster Health Checking Infiniband \033[0m----\n");
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
          /* preparing the nodes checking log filename, eq., filename and filepath */
@@ -53,7 +53,7 @@ int clushc_network(
 
          if((strcmp(check_node.ib_status,"ACTIVE") == 0) && (strcmp(check_node.ib_opensmd, "stopped") == 0))
               {flag_ok = "PASSED";}
-         else {flag_ok = "NOT PASSED";}
+         else {flag_ok = "\033[5;31mNOT PASSED\033[0m";}
 
          printf("[%s] -> Device Name [%s]\t\t[%s]\n",node_list[i], check_node.ib_name, flag_ok);
          printf("\tIB State ---- [%s]\n",check_node.ib_status);

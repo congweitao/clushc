@@ -27,7 +27,7 @@ int clushc_firmware(
    char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
    char* name_checklog=(char *)malloc(STRING_MAX);
 
-   printf("---- Cluster Health Checking FirmWare ----\n");
+   printf("----\033[34m Cluster Health Checking FirmWare \033[0m----\n");
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
          /* preparing the nodes checking log filename, eq., filename and filepath */

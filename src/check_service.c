@@ -29,7 +29,7 @@ int clushc_service(
    char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
    char* name_checklog=(char *)malloc(STRING_MAX);
 
-   printf("---- Cluster Health Checking System ----\n");
+   printf("----\033[34m Cluster Health Checking System \033[0m----\n");
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
          /* preparing the nodes checking log filename, eq., filename and filepath */

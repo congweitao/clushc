@@ -14,10 +14,9 @@
 #include "common.h"
 #include "check.h"
 
-
    /* Parse Input Parameters */
 char* l_opt_arg;
-char* const short_options = "hilsbfonv:";
+char* const short_options = "hvilsbfon:";
 struct option long_options[] = {
     { "help",           0, NULL, 'h' },
     { "collect-info",   0, NULL, 'i' },
@@ -27,36 +26,41 @@ struct option long_options[] = {
     { "check-firmware", 0, NULL, 'f' },
     { "check-storage",  0, NULL, 'o' },
     { "check-network",  0, NULL, 'n' },
+    { "create-nodelist",  0, NULL, 'c' },
     { "version",        0, NULL, 'v' },
     {         0,        0,    0,  0  },
 };
+
+/* environment variables */
+char node_list[NODE_NUM_MAX][NODE_WIDTH];
+char* check_system;
+char* clushc_scpfile;
+char* clushc_syncdo;
+char* clushc_syncfile;
+char* clushc_log;
+char* clushc_path;
+char* clushc_nodelist;
+char* clushc_create_nodelist;
 
 int main(int argc, char **argv)
 {
    int opt;
    FILE* fp_conf;
 
-  char node_list[NODE_NUM_MAX][NODE_WIDTH];
-  char* check_system=(char *)malloc(FILEPATH_MAX);
-  char* clushc_scpfile=(char *)malloc(FILEPATH_MAX);
-  char* clushc_syncdo=(char *)malloc(FILEPATH_MAX);
-  char* clushc_syncfile=(char *)malloc(FILEPATH_MAX);
-  char* clushc_log=(char *)malloc(FILEPATH_MAX);
-  char* clushc_path=(char *)malloc(FILEPATH_MAX);
-  char* clushc_nodelist=(char *)malloc(FILEPATH_MAX);
-  char* clushc_create_nodelist=(char *)malloc(FILEPATH_MAX);
+   /*  Initializing Parameter */
+   check_system=(char *)malloc(FILEPATH_MAX);
+   clushc_scpfile=(char *)malloc(FILEPATH_MAX);
+   clushc_syncdo=(char *)malloc(FILEPATH_MAX);
+   clushc_syncfile=(char *)malloc(FILEPATH_MAX);
+   clushc_log=(char *)malloc(FILEPATH_MAX);
+   clushc_path=(char *)malloc(FILEPATH_MAX);
+   clushc_nodelist=(char *)malloc(FILEPATH_MAX);
+   clushc_create_nodelist=(char *)malloc(FILEPATH_MAX);
 
    /* Setup Clushc environment variables */ 
-   clushc_path = getenv("CLUSHC_PATH");
-   clushc_nodelist = getenv("CLUSHC_NODELIST");
-   clushc_scpfile = getenv("CLUSHC_SCP");
-   clushc_syncdo =  getenv("CLUSHC_SYNCDO");
-   clushc_syncfile = getenv("CLUSHC_SYNCFILE");
-   check_system = getenv("CLUSHC_CHECK_SYSTEM");
-   clushc_log = getenv("CLUSHC_LOG");
-   clushc_create_nodelist = getenv("CLUSHC_CREATE_NODELIST");
- 
-   /* initializing memory space, create nodelist */
+   setup_environment();
+
+   /* Initializing memory space, create nodelist */
    memset(node_list,'\0',sizeof(node_list));
    get_nodelist(clushc_nodelist, node_list);
    
@@ -75,8 +79,9 @@ int main(int argc, char **argv)
                system(check_system);
                break;
          case 'l':
-                l_opt_arg = optarg;
-                printf("%s\n",l_opt_arg);
+                clushc_nodelist = optarg;
+		unsetenv("CLUSHC_NODELIST");
+                setenv("CLUSHC_NODELIST",clushc_nodelist,1);
                 break;
          case 's':               
                clushc_service(clushc_path, node_list); 
@@ -93,13 +98,15 @@ int main(int argc, char **argv)
          case 'o':               
                clushc_storage(clushc_path, node_list); 
                break;
+         case 'c':               
+               system(clushc_create_nodelist); 
+               break;
          case 'v':
-              printf("Clushc Version 1.0.0 uptdate 11/2/2016\n");
+              printf("Clushc Version 1.0.0 update 11/2/2016\n");
               break;
          default:
               usage();
       }
    }  
-
    return 0;
 }
