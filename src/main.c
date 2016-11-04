@@ -16,7 +16,7 @@
 
    /* Parse Input Parameters */
 char* l_opt_arg;
-char* const short_options = "hvilsbfon:";
+char* const short_options = "hilsbfoncv:";
 struct option long_options[] = {
     { "help",           0, NULL, 'h' },
     { "collect-info",   0, NULL, 'i' },
@@ -32,7 +32,7 @@ struct option long_options[] = {
 };
 
 /* environment variables */
-char node_list[NODE_NUM_MAX][NODE_WIDTH];
+char  node_list[NODE_NUM_MAX][NODE_WIDTH];
 char* check_system;
 char* clushc_scpfile;
 char* clushc_syncdo;

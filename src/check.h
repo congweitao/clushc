@@ -24,12 +24,13 @@ struct _check_node{
 };
 
 struct _check_node_mem{
-	char* memory_size;
+	char* mem_size;
 	char* dimm_counts;
 	char* size;
 	char* locator;
 	char* type;
 	char* speed;
+	char* mem_used_perc;
 };
 
 struct _check_node_fw{

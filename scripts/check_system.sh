@@ -18,7 +18,7 @@ check_command()
    CMD=$1
    which ${CMD} >/dev/null 2>&1 
    if [ $? != 0 ];then
-      echo -e "\033[31m[ERROR]\033[0m Command ${CMD} not found..."
+      echo -e "\033[31m[ERROR]\033[0m $(hostname)'s command ${CMD} not found..."
       return 1;
    else
       return 0;
@@ -83,8 +83,13 @@ TOTAL_MEM=`grep "MemTotal:" /proc/meminfo | awk '{msum+=($2/1024)/1024} END {pri
 FREE_MEM=`grep "MemFree:" /proc/meminfo | awk '{mfree+=($2/1024)/1024} END {printf "%.0f",mfree}'`
 TOTAL_SWAP=`grep "SwapTotal:" /proc/meminfo | awk '{ssum+=($2/1024)/1024} END {printf "%.0f",ssum}'`
 FREE_SWAP=`grep "SwapFree:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {printf "%.0f",sfree}'`
+BUFFERS=`grep "Buffers:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {printf "%.0f",sfree}'`
+CACHED=`grep "Cached:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {printf "%.0f",sfree}'`
+MEM_USED_PERC=$(expr 100 \* \( $TOTAL_MEM - $FREE_MEM - $BUFFERS - $CACHED \) \/ $TOTAL_MEM )
+
 
 echo "MEMORY_SIZE = $TOTAL_MEM" >> $Report
+echo "MEM_USED_PERC = ${MEM_USED_PERC}%" >> $Report 
 echo "SWAP_SIZE = $TOTAL_SWAP" >> $Report
 }
 
