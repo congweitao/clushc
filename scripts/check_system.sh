@@ -174,7 +174,7 @@ else
 #   NFS_OPTS="NULL"
 fi
 
-
+LUSTRE_MOUNTS=`mount | grep lustre | wc -l`
 PARASTOR_MOUNTS=`mount | grep parastor | wc -l`
 
 echo "NFS_MOUNTS = $NFS_MOUNTS" >> $Report
@@ -182,6 +182,29 @@ echo "NFS_FSNAME = $NFS_FSNAME" >> $Report
 echo "NFS_DIR = $NFS_DIR" >> $Report
 echo "NFS_TYPE = $NFS_TYPE" >> $Report
 echo "ParaStor_MOUNTS = $PARASTOR_MOUNTS" >> $Report
+echo "Lustre_MOUNTS = $LUSTRE_MOUNTS" >> $Report
+}
+
+lustre_client(){
+LUSTRE_MOUNTS=`mount | grep lustre | wc -l`
+if [ "$LUSTRE_MOUNTS" == "0" ];then
+   exit 0;
+fi
+FSNAME_MOUNTPOINT=$(lfs getname)
+LUSTRE_VERSION=$(lfs --version | awk -F ' ' '{print $2}' )
+
+echo "LUSTRE_VERSION = $LUSTRE_VERSION" >> $Report
+echo "LUSTRE_MOUNTS = $LUSTRE_MOUNTS" >> $Report
+echo "FSNAME_MOUNTPOINT = $FSNAME_MOUNTPOINT" >> $Report
+}
+
+lustre_server(){
+LUSTRE_KERNEL=`uname -r | grep lustre | wc -l`
+if [ "$LUSTRE_KERNEL" == "0" ];then
+   exit 0;
+fi
+
+echo "LUSTRE_SERVER = $(hostname)" >> $Report
 }
 
 ## NIS Function
