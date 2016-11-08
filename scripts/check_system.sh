@@ -50,6 +50,28 @@ SELINUX=`cat /etc/sysconfig/selinux | sed -n "/^SELINUX=/p" | awk -F '=' '{print
 echo "SELINUX = $SELINUX" >> $Report
 }
 
+
+disk(){
+# check the local disks, number, capacity, usage, protocol, rotation rate, 
+DISK_NAME=($(cat /proc/diskstats |grep sd*|sed 's/[0-9]//g'| sed 's/[[:space:]]//g'|sort|uniq))
+DISK_VENDOR=($(cat /proc/scsi/scsi |grep 'Vendor:'|awk '{print $2}'))
+DISK_NUM=$(echo ${#DISK_NAME[@]})
+DISK_VENDORsda=${DISK_VENDOR[0]}
+DISK_CAPACITYsda=$(smartctl -a /dev/sda |grep 'User Capacity:'|sed 's/\[//'|sed 's/\]//'|awk '{print $5$6}')
+ROTATION_RATEsda=$(smartctl -a /dev/sda |grep 'Rotation Rate:'|awk '{print $3$4}')
+TRANSPORT_PROTOCOLsda=$(smartctl -a /dev/sda |grep 'Transport protocol:'|awk '{print $3}')
+DISK_HEALTH_STATUSsda=$(smartctl -H /dev/sda | awk -F ':' '{printf $2}')
+DISK_USAGE=$(df -k | grep -v Filesystem| awk '{print int($5)}' |head -n1)
+
+echo "DISK_NUM = $DISK_NUM " >> $Report; 
+echo "DISK_VENDORsda = ${DISK_VENDORsda}" >> $Report;
+echo "DISK_CAPACITYsda = $DISK_CAPACITYsda" >> $Report;
+echo "DISK_USAGE = $DISK_USAGE" >> $Report;
+echo "ROTATION_RATEsda = $ROTATION_RATEsda" >> $Report;
+echo "TRANSPORT_PROTOCOLsda = $TRANSPORT_PROTOCOLsda" >> $Report;
+echo "DISK_HEALTH_STATUSsda = $DISK_HEALTH_STATUSsda">> $Report;
+}
+
 bios(){
 SERIAL_NUM_TMP1=`dmidecode -s system-serial-number`;
 
@@ -263,6 +285,7 @@ cpu
 ethernet
 ib
 nfs
+disk
 nis
 userinfo
 mcelog

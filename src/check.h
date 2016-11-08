@@ -39,6 +39,15 @@ struct _check_node_fw{
 	char* bmc;
 };
 
+struct _check_node_disk{
+	char* disk_num;
+	char* disk_vendor;
+        char* disk_size;
+	char* disk_usage;
+	char* disk_protocol;
+	char* disk_rate;
+};
+
 struct _check_service{
 	char* ntpd;
 	char* oom;

@@ -1,30 +1,13 @@
-weather		temperature		humidity		wind		play
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-sunny		hot			high			false		no
-sunny		hot			high			false		no
-sunny		hot			high			false		no
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-overcast	hot			high			false		yes
-rainy		warm			high			false		yes
-rainy		warm			high			false		yes
-rainy		warm			high			false		yes
-rainy		cool			norm			true		no
-rainy		cool			norm			true		no
-rainy		cool			norm			true		no
-rainy		cool			norm			true		no
-rainy		cool			norm			true		no
-rainy		cool			norm			true		no
-overcast	warm			high			true		yes
-overcast	warm			high			true		yes
-overcast	warm			high			true		yes
-overcast	warm			high			true		yes
-overcast	hot			high			false		yes
-rainy		warm			high			false		yes
+memory		cpu_temp		load_avg		nfs		network		alarm
+64		40			12			2		active		no
+64		20			24			1		active		no
+64		60			49			0		down		yes
+64		100			24			2		active		no
+32		80			48			1		active		yes
+128		70			96			2		active		yes
+256		40			24			2		active		no
+128		30			16			2		active		no
+128		10			12			2		active		yes
+256		10			2			2		active		no
+256		20			4			2		active		yes
+24		40			1			2		active		no
