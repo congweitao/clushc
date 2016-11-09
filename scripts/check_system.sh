@@ -108,11 +108,16 @@ FREE_SWAP=`grep "SwapFree:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {pr
 BUFFERS=`grep "Buffers:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {printf "%.0f",sfree}'`
 CACHED=`grep "Cached:" /proc/meminfo | awk '{sfree+=($2/1024)/1024} END {printf "%.0f",sfree}'`
 MEM_USED_PERC=$(expr 100 \* \( $TOTAL_MEM - $FREE_MEM - $BUFFERS - $CACHED \) \/ $TOTAL_MEM )
-
+TOTAL_DIMMS=$(dmidecode -t memory |grep 'Size' |wc -l)
+USED_DIMMS=$(dmidecode -t memory |grep 'MB$' |grep  '[[:digit:]]'|wc -l)
+SINGLE_MEM_SIZE=($(dmidecode -t memory |grep 'MB$'|awk -F ':' '{print $2}'|sort|uniq))
 
 echo "MEMORY_SIZE = $TOTAL_MEM" >> $Report
 echo "MEM_USED_PERC = ${MEM_USED_PERC}%" >> $Report 
 echo "SWAP_SIZE = $TOTAL_SWAP" >> $Report
+echo "TOTAL_DIMMS = $TOTAL_DIMMS" >> $Report
+echo "USED_DIMMS = $USED_DIMMS" >> $Report
+echo "SINGLE_MEM_SIZE = $SINGLE_MEM_SIZE" >> $Report
 }
 
 ## CPU Function

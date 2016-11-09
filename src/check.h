@@ -25,7 +25,9 @@ struct _check_node{
 
 struct _check_node_mem{
 	char* mem_size;
-	char* dimm_counts;
+	char* mem_dimms;
+	char* mem_dimms_used;
+	char* mem_dimms_size;
 	char* size;
 	char* locator;
 	char* type;
