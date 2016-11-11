@@ -16,7 +16,7 @@ static int flag_ht=0;
 struct _check_node check_node;
 struct _check_node_mem check_node_mem;
 
-static int row_num = 0, row_num_mem = 0;
+static int row_num = 0, row_num_mem = 0, row_num_cpu_used = 0;
 static int row_num_memory = 0, row_num_load = 0;
 static int row_num_mem_used_perc = 0, row_num_dimms = 0;
 
@@ -41,6 +41,7 @@ int clushc_bios(
          
          row_num = get_row_num(path_checklogfile, "THREAD_PER_CORE");
          row_num_load = get_row_num(path_checklogfile, "LOAD_AVG");
+         row_num_cpu_used = get_row_num(path_checklogfile, "CPU_USED");
          row_num_mem = get_row_num(path_checklogfile, "MEMORY_SIZE");
          row_num_mem_used_perc = get_row_num(path_checklogfile, "MEM_USED_PERC");
          row_num_dimms = get_row_num(path_checklogfile,"TOTAL_DIMMS");
@@ -48,6 +49,7 @@ int clushc_bios(
          check_node.thread_per_core = get_special_line(path_checklogfile,row_num);
          check_node.cpu_model = get_special_line(path_checklogfile,++row_num);
          check_node.load_avg = get_special_line(path_checklogfile,row_num_load);
+         check_node.cpu_used = get_special_line(path_checklogfile,row_num_cpu_used);
          check_node_mem.mem_size = get_special_line(path_checklogfile,row_num_mem);
          check_node_mem.mem_dimms = get_special_line(path_checklogfile,row_num_dimms);
          check_node_mem.mem_dimms_used = get_special_line(path_checklogfile,++row_num_dimms);
@@ -57,6 +59,7 @@ int clushc_bios(
          remove_space(check_node.thread_per_core);
          remove_space(check_node.cpu_model);
          remove_space(check_node.load_avg);
+         remove_space(check_node.cpu_used);
          remove_space(check_node_mem.mem_size);
          remove_space(check_node_mem.mem_dimms);
          remove_space(check_node_mem.mem_dimms_used);
@@ -73,6 +76,7 @@ int clushc_bios(
          }
          printf("[%s]  ->  Hyper-Threading--[%s]\t[%s]\n",node_list[i],flag_hyper_threading,flag_ok);
          printf("      ->  Load Average--------[%s]\n",check_node.load_avg);
+         printf("      ->  CPU USED Ratio(%)--------[%s]\n",check_node.cpu_used);
          printf("      ->  Total Memory--------[%s]\n",check_node_mem.mem_size);
          printf("      ->  Memory Used Ratio--------[%s]\n",check_node_mem.mem_used_perc);
          printf("      ->  Memory DIMMS Numbers--------[%s]\n",check_node_mem.mem_dimms);

@@ -13,6 +13,7 @@ struct _check_node{
        char* thread_per_core;
        char* cpu_model;
        char* load_avg;
+       char* cpu_used;
        char* ib_status;
        char* ib_name;
        char* ib_rate;

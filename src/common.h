@@ -34,4 +34,5 @@ int get_row_num(const char* path, const char* item);
 //remove the head and tail spaces
 char* remove_space(char *str);
 void setup_environment();
+void get_clushc_version();
 void usage();

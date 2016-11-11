@@ -1,13 +1,22 @@
-# clushc
-cluster health check
 
-Instruction
----------------------
+Sugon cluster health check
+--------------------------------
+1. cluhc overview
+
+
+--------------------------------
+2. Building clushc
 
 Modify the "makefile" to change the <INSTALL_PATH>.
 
 
+--------------------------------
+3. Running clushc
 
-ChangeLog
---------------------------
-16.11.08  add check local disk number, size, ..
+clushc --help
+
+
+--------------------------------
+4. ChangeLog
+
+16.11.08  add checking local diskes healthy status.

@@ -127,6 +127,7 @@ THREAD_PER_CORE=`lscpu | grep 'Thread(s) per core'| awk '{print $4}'`
 CPU_MODEL=`cat /proc/cpuinfo | grep 'model name' | sort | uniq | cut -d : -f 2`
 CACHE_SIZE=`cat /proc/cpuinfo | grep 'cache size' | sort | uniq | cut -d : -f 2`
 CACHE_ALIGMENT=`cat /proc/cpuinfo | grep cache_alignment | sort | uniq | cut -d : -f 2`
+CPU_USED=$(ps -A -o  pcpu | tail -n+2 | paste -sd+ | bc);
 
 check_command ipmitool;
 if [ $? -eq 0 ];then
@@ -141,6 +142,7 @@ echo "CPU_MODEL = $CPU_MODEL" >> $Report
 echo "CACHE_SIZE = $CACHE_SIZE" >> $Report
 echo "CACHE_ALIGMENT = $CACHE_ALIGMENT" >> $Report
 echo "CPU0_TEMP = $CPU0_TEMP" >> $Report
+echo "CPU_USED = $CPU_USED" >> $Report
 }
 
 ## Ethernet Function (eth1 for me, you can edit for yours)

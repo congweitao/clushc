@@ -112,7 +112,7 @@ int sort_merge(const int NUM,
 }
 
 
-//remove the head and tail spaces
+//remove the head and tail spaces of a certain character
 char *remove_space(char *str)  
 {  
    char *p = str;
@@ -164,6 +164,11 @@ void setup_environment()
    clushc_create_nodelist = getenv("CLUSHC_CREATE_NODELIST");
 }
 
+void get_clushc_version()
+{
+   printf("Clushc  Version 1.0.0 update 11/2/2016\n");
+}
+
 void usage()
 {
  
@@ -176,7 +181,7 @@ void usage()
 
    printf("Clushc administration tool\n\n");
 
-   printf("optional arguments:\n");
+   printf("Optional arguments:\n");
    printf("  -h, --help            request mon help\n");
    printf("  -l HOSTLIST, --hostlist HOSTLIST\n");
    printf("                        input hosts file\n");

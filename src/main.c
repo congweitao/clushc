@@ -14,9 +14,9 @@
 #include "common.h"
 #include "check.h"
 
-   /* Parse Input Parameters */
+/* Parse Input Parameters */
 char* l_opt_arg;
-char* const short_options = "hilsbfoncv:";
+char* const short_options = "hilsbfoncv";
 struct option long_options[] = {
     { "help",           0, NULL, 'h' },
     { "collect-info",   0, NULL, 'i' },
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
    /* Setup Clushc environment variables */ 
    setup_environment();
 
-   /* Initializing memory space, create nodelist */
+   /* Initializing memory space, creating nodelist */
    memset(node_list,'\0',sizeof(node_list));
    get_nodelist(clushc_nodelist, node_list);
    
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
                system(clushc_create_nodelist); 
                break;
          case 'v':
-              printf("Clushc Version 1.0.0 update 11/2/2016\n");
+	      get_clushc_version();
               break;
          default:
               usage();
