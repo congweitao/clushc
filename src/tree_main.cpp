@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#include "c45.hpp"
-=======
-#include "c45.h"
->>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
+#include "decision_tree.h"
 
 int main(int argc, char* argv[]){
         string filename = "source.txt";
@@ -12,9 +8,9 @@ int main(int argc, char* argv[]){
         set<int> readLineNum;
         vector<int> readClumNum;
         int deep = 0;
-        if (dt.get_dataset(filename, readLineNum, readClumNum) == 0)
+        if (dt.pretreatment(filename, readLineNum, readClumNum) == 0)
         {
-                dt.create_tree(treeHead, dt.get_state_tree(), dt.get_contents(), readLineNum, readClumNum, deep);
+                dt.CreatTree(treeHead, dt.getStatTree(), dt.getInfos(), readLineNum, readClumNum, deep);
         }
         return 0;
 }

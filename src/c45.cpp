@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #include "c45.hpp"
+=======
+#include "c45.h"
+>>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
 
 int DecisionTree::get_dataset(string filename, set<int>& read_line_num, vector<int>& read_colum_num)
 {

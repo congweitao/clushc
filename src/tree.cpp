@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #include "tree.hpp"
+=======
+#include "tree.h"
+>>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
 
 TreeNode* CreateTreeNode(string value)
 {
