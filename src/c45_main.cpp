@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #include "c45.hpp"
-=======
-#include "c45.h"
->>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
 
 int main(int argc, char* argv[]){
         string filename = "source.txt";
