@@ -175,12 +175,9 @@ void usage()
    printf("General usage:\n"); 
    printf("==============\n"); 
    printf("usage: clushc [-h] [-l NODELIST] [-o CHECK_STORAGE] [-n CHECK_NETWORK]\n");
-<<<<<<< HEAD
    printf("              [--collect-info COLLECT_INFO] [--create-nodelist CREATE_NODELIST]\n");
    printf("              [--check-service CHECK_SERVICE]\n");
-=======
    printf("              [--collect-info COLLECT_INFO] [--check-service CHECK_SERVICE]\n");
->>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
    printf("              [--check-storage CHECK_STORAGE] [--check-network CHECK_NETWORK]\n");
    printf("              [--check-bios CHECK_BIOS] [--check-firmware CHECK_FIRMWARE] [--version]\n\n");
 
@@ -188,25 +185,17 @@ void usage()
 
    printf("Optional arguments:\n");
    printf("  -h, --help            request mon help\n");
-<<<<<<< HEAD
    printf("  -c, --create-hostlist creating nodelist in CLUSHC root path\n");
    printf("  -l HOSTLIST, --hostlist HOSTLIST\n");
    printf("                        input hosts file\n");
    printf("  -i, --collect-info    collecting information from the clients\n");
-=======
    printf("  -l HOSTLIST, --hostlist HOSTLIST\n");
    printf("                        input hosts file\n");
->>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
    printf("  -n, --check-network   checking network status\n");
    printf("  -f, --check-firmware  checking firmware information\n");
    printf("  -o, --check-storage   checking storage information\n");
    printf("  -s, --check-service   checking OS' default parameter\n");
    printf("  -b, --check-bios      checking BIOS' default parameter\n");
    printf("  --version, -v         display version\n\n");
-<<<<<<< HEAD
-=======
-
-   printf("Clushc  Version 1.0.0 update 11/2/2016\n");
->>>>>>> ab146f55d50ec0d3d3e59807ea24af00d71b348f
 }
 
