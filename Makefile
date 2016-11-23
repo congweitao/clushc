@@ -24,7 +24,7 @@ setup:
 	/bin/cp -a  config/clushc_conf.sh  /etc/profile.d/
 	echo "source /etc/profile.d/clushc_conf.sh to use clushc!"
 clushc:
-	${CC} -o ${BIN_PATH}/${exe} ${SRC_PATH}/*.c
+	${CC} -o ${BIN_PATH}/${exe} -g ${SRC_PATH}/*.c
 install:
 	/bin/mkdir -p ${INSTALL_PATH}
 	/bin/mkdir -p ${INSTALL_PATH}/log

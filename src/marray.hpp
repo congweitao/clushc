@@ -75,8 +75,8 @@
 /// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /// 
 #pragma once
-#ifndef MARRAY_HXX
-#define MARRAY_HXX
+#ifndef MARRAY_HPP
+#define MARRAY_HPP
 
 #include <cassert>
 #include <cstddef>
@@ -6799,5 +6799,5 @@ inline void operate
 
 } // namespace andres
 
-#endif // #ifndef MARRAY_HXX
+#endif // #ifndef MARRAY_HPP
 

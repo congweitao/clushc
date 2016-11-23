@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _DECISION_TREE_H_
 #define _DECISION_TREE_H_
 #include <string>
@@ -16,36 +17,36 @@ struct TupleData
 	char label;
 };
 
-struct TNode
+struct TreeNode
 {
 	int attrNum;	
 	int attr;	
 	char label;
 };
 
-struct decision_tree
+struct DecisionTree
 {
-	TNode node;
-	vector<decision_tree*> childs;
+	TreeNode node;
+	vector<DecisionTree*> childs;
 };
 
 void init(char * trainname, char * testname);
-int readData(vector<TupleData> &data, const char* fileName);
-int stringtoint(string s);
+int read_data(vector<TupleData> &data, const char* fileName);
+int string_to_int(string s);
 void sub_init();
-void calculate_ArrtNum();
+void calculate_arrt_num();
 void calculate_attributes();
-void RandomSelectData(vector<TupleData> &data, vector<TupleData> &subdata);
-double Entropy(double p, double s);
-int creat_classifier(decision_tree *&p, const vector<TupleData> &samples, vector<int> &attributes);
-int BestGainArrt(const vector<TupleData> &samples, vector<int> &attributes);
-bool Allthesame(const vector<TupleData> &samples, char ch);
-char Majorityclass(const vector<TupleData> &samples);
-void RandomSelectAttr(vector<int> &data, vector<int> &subdata);
-char testClassifier(decision_tree *p, TupleData d);
-void testData();
-void freeClassifier(decision_tree *p);
-void freeArrtNum();
-void showResult();
+void random_select_data(vector<TupleData> &data, vector<TupleData> &subdata);
+double compute_entropy(double p, double s);
+int create_classifier(DecisionTree *&p, const vector<TupleData> &samples, vector<int> &attributes);
+int best_gain_arrt(const vector<TupleData> &samples, vector<int> &attributes);
+bool all_the_same(const vector<TupleData> &samples, char ch);
+char majority_class(const vector<TupleData> &samples);
+void random_select_attr(vector<int> &data, vector<int> &subdata);
+char test_classifier(DecisionTree *p, TupleData d);
+void test_data();
+void free_classifier(DecisionTree *p);
+void free_arrt_num();
+void show_result();
 
-#endif //_DECISION_TREE_H_
+#endif //_RANDOM_FOREST_H_

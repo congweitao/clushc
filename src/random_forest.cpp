@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<decision_tree*> alltrees;
+vector<DecisionTree*> alltrees;
 
 vector<TupleData> trainAll,
 	          train,			
@@ -30,8 +30,8 @@ int TP=0,
 
 void init(char * trainname, char * testname)
 {
-	trainAllNum=readData(trainAll, trainname);
-	testAllNum=readData(test, testname);
+	trainAllNum=read_data(trainAll, trainname);
+	testAllNum=read_data(test, testname);
 	calculate_attributes();
 	double temp=(double)trainAllNum;
 	temp=log(temp)/log(2.0);
@@ -42,12 +42,12 @@ void init(char * trainname, char * testname)
 
 void sub_init()
 {
-	RandomSelectData(trainAll, train);
-	calculate_ArrtNum();
+	random_select_data(trainAll, train);
+	calculate_arrt_num();
 }
 
 
-int readData(vector<TupleData> &data, const char* fileName)
+int read_data(vector<TupleData> &data, const char* fileName)
 {
 	fin.open(fileName);
 	string line;
@@ -71,7 +71,7 @@ int readData(vector<TupleData> &data, const char* fileName)
 			}
 			else
 			{
-				int j=stringtoint(str);
+				int j=string_to_int(str);
 				d.A.push_back(j);
 			}
 		}
@@ -84,7 +84,7 @@ int readData(vector<TupleData> &data, const char* fileName)
 	return datanum;
 }
 
-void RandomSelectData(vector<TupleData> &data, vector<TupleData> &subdata)
+void random_select_data(vector<TupleData> &data, vector<TupleData> &subdata)
 {
 	int index;
 	subdata.clear();
@@ -112,7 +112,7 @@ void calculate_attributes()
 }
 	
 
-int stringtoint(string s)
+int string_to_int(string s)
 {
 	int sum=0;
 	for(int i=0; s[i]!='\0';i++)
@@ -123,7 +123,7 @@ int stringtoint(string s)
 	return sum;
 }
 
-void calculate_ArrtNum()
+void calculate_arrt_num()
 {
 	for(int i=0; i<MaxAttr;i++) ArrtNum[i]=0;
 	for (vector<TupleData>::const_iterator it = train.begin(); it != train.end(); it++)	
@@ -139,7 +139,7 @@ void calculate_ArrtNum()
 }
 
 
-double Entropy(double p, double s)
+double compute_entropy(double p, double s)
 {
 	double n = s - p;
 	double result = 0;
@@ -150,18 +150,18 @@ double Entropy(double p, double s)
 	return result;
 }
 
-int creat_classifier(decision_tree *&p, const vector<TupleData> &samples, vector<int> &attributes)
+int create_classifier(DecisionTree *&p, const vector<TupleData> &samples, vector<int> &attributes)
 {
 	if (p == NULL)
-		p = new decision_tree();
-	if (Allthesame(samples, '+'))
+		p = new DecisionTree();
+	if (all_the_same(samples, '+'))
 	{
 		p->node.label = '+';
 		p->node.attrNum = leafattrnum;
 		p->childs.clear();
 		return 1;
 	}
-	if (Allthesame(samples, '-'))
+	if (all_the_same(samples, '-'))
 	{
 		p->node.label = '-';
 		p->node.attrNum = leafattrnum;
@@ -170,12 +170,12 @@ int creat_classifier(decision_tree *&p, const vector<TupleData> &samples, vector
 	}
 	if (attributes.size() == 0)
 	{
-		p->node.label = Majorityclass(samples);
+		p->node.label = majority_class(samples);
 		p->node.attrNum = leafattrnum;
 		p->childs.clear();
 		return 1;
 	}
-	p->node.attrNum = BestGainArrt(samples, attributes);
+	p->node.attrNum = best_gain_arrt(samples, attributes);
 
 	p->node.label = ' ';
 	
@@ -194,21 +194,21 @@ int creat_classifier(decision_tree *&p, const vector<TupleData> &samples, vector
 		subSamples[(*it).A.at(p->node.attrNum)].push_back((*it));
 	}
 
-	decision_tree *child;
+	DecisionTree *child;
 	for (int i = 0; i < maxvalue; i++)
 	{
-		child = new decision_tree;
+		child = new DecisionTree;
 		child->node.attr = i;
 		if (subSamples[i].size() == 0)
-			child->node.label = Majorityclass(samples);
+			child->node.label = majority_class(samples);
 		else
-			creat_classifier(child, subSamples[i], newAttributes);
+			create_classifier(child, subSamples[i], newAttributes);
 		p->childs.push_back(child);
 	}
 	return 0;
 }
 
-int BestGainArrt(const vector<TupleData> &samples, vector<int> &attributes)
+int best_gain_arrt(const vector<TupleData> &samples, vector<int> &attributes)
 {
 	int attr, 
 		bestAttr = 0,
@@ -223,10 +223,10 @@ int BestGainArrt(const vector<TupleData> &samples, vector<int> &attributes)
 	
 	double infoD;
 	double bestResult = 0;
-	infoD=Entropy(p, s);
+	infoD=compute_entropy(p, s);
 	
 	vector<int> m_attributes;
-	RandomSelectAttr(attributes, m_attributes);
+	random_select_attr(attributes, m_attributes);
 	
 	for (vector<int>::iterator it = m_attributes.begin(); it != m_attributes.end(); it++)
 	{
@@ -262,7 +262,7 @@ int BestGainArrt(const vector<TupleData> &samples, vector<int> &attributes)
 		for (int i = 0; i < maxvalue; i++)
 		{
 			double partentropy;
-			partentropy=Entropy(subP[i], subP[i] + subN[i]);
+			partentropy=compute_entropy(subP[i], subP[i] + subN[i]);
 			infoattr=infoattr+((double)(subP[i] + subN[i])/(double)(s))*partentropy;
 		}
 		result=result-infoattr;
@@ -282,7 +282,7 @@ int BestGainArrt(const vector<TupleData> &samples, vector<int> &attributes)
 	return bestAttr;
 }
 
-void RandomSelectAttr(vector<int> &data, vector<int> &subdata)
+void random_select_attr(vector<int> &data, vector<int> &subdata)
 {
 	int index;
 	unsigned int dataNum=data.size();
@@ -311,7 +311,7 @@ void RandomSelectAttr(vector<int> &data, vector<int> &subdata)
 	}
 }
 
-bool Allthesame(const vector<TupleData> &samples, char ch)
+bool all_the_same(const vector<TupleData> &samples, char ch)
 {
 	for (vector<TupleData>::const_iterator it = samples.begin(); it != samples.end(); it++)
 		if ((*it).label != ch)
@@ -319,7 +319,7 @@ bool Allthesame(const vector<TupleData> &samples, char ch)
 	return true;
 }
 
-char Majorityclass(const vector<TupleData> &samples)
+char majority_class(const vector<TupleData> &samples)
 {
 	int p = 0, n = 0;
 	for (vector<TupleData>::const_iterator it = samples.begin(); it != samples.end(); it++)
@@ -333,17 +333,17 @@ char Majorityclass(const vector<TupleData> &samples)
 		return '-';
 }
 
-char testClassifier(decision_tree *p, TupleData d)
+char test_classifier(DecisionTree *p, TupleData d)
 {
 	if (p->node.label != ' ')
 		return p->node.label;
 	int attrNum = p->node.attrNum;
 	if (d.A.at(attrNum) < 0)
 		return ' ';
-	return testClassifier(p->childs.at(d.A.at(attrNum)), d);
+	return test_classifier(p->childs.at(d.A.at(attrNum)), d);
 }
 
-void testData()
+void test_data()
 {
 	for (vector<TupleData>::iterator it = test.begin(); it != test.end(); it++)
 	{
@@ -353,7 +353,7 @@ void testData()
 		int p=0, n=0;
 		for(int i=0;i<tree_num;i++)
 		{
-			if(testClassifier(alltrees.at(i), (*it))=='+')  p++;
+			if(test_classifier(alltrees.at(i), (*it))=='+')  p++;
 			else n++;
 		}
 		
@@ -371,23 +371,23 @@ void testData()
 }
 
 
-void freeClassifier(decision_tree *p)
+void free_classifier(DecisionTree *p)
 {
 	if (p == NULL)
 		return;
-	for (vector<decision_tree*>::iterator it = p->childs.begin(); it != p->childs.end(); it++)
+	for (vector<DecisionTree*>::iterator it = p->childs.begin(); it != p->childs.end(); it++)
 	{
-		freeClassifier(*it);
+		free_classifier(*it);
 	}
 	delete p;
 }
 
-void freeArrtNum()
+void free_arrt_num()
 {
 	delete[] ArrtNum;
 }
 
-void showResult()
+void show_result()
 {
 	cout<<"Train size:	"<< trainAllNum<<endl;
 	cout<<"Test size:	"<<testAllNum<<endl;														
@@ -412,20 +412,20 @@ int main(int argc, char **argv)
 	for(int i=0; i<tree_num; i++)
 	{
 		sub_init();
-		decision_tree * root=NULL;
-		creat_classifier(root, train, attributes);
+		DecisionTree * root=NULL;
+		create_classifier(root, train, attributes);
 		alltrees.push_back(root);
 	}
 
-	testData();
+	test_data();
 	
-	for (vector<decision_tree *>::const_iterator it = alltrees.begin(); it != alltrees.end(); it++)
+	for (vector<DecisionTree *>::const_iterator it = alltrees.begin(); it != alltrees.end(); it++)
 	{
-		freeClassifier((*it));
+		free_classifier((*it));
 	}
 		
-	freeArrtNum();
+	free_arrt_num();
 	
-	showResult();
+	show_result();
 	return 0;
 }

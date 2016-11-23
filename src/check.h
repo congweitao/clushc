@@ -2,13 +2,25 @@
  * Functions to check Infiniband Network, Storage, Filesystem, etc.
  *
  */
-
+#ifndef  _CHECK_H
+#define  _CHECK_H
 #include "common.h"
 
-#define FILEPATH_MAX 1024
-#define STRING_MAX 1024
+/* define an array to store check status */
+int status[ITEM_NUM];
 
-// checking node items
+/* the selected check-items */
+struct _check_item{
+	int ht;      // hyper-threading
+        int load_avg; // load average
+        int cpu_used; // used cpu percentage
+	int ib_status;
+	int ib_conn_mode;
+	int mem_used_perc; // used memory percentage
+	int stack; // the stack size
+};
+
+/* checking node items */
 struct _check_node{
        char* thread_per_core;
        char* cpu_model;
@@ -60,9 +72,11 @@ struct _check_service{
 	char* iptable;
 };
 
-struct _check_item{
-        char hostname[NODE_WIDTH];
-        char item_content[200];
+struct _check_torque{
+	char* pbs_mom;
+	char* pbs_server;
+	char* trqauthd;
+	char* maui;
 };
 
 int clushc_network(
@@ -84,3 +98,9 @@ int clushc_storage(
 int clushc_firmware(
 	char* clushc_path, 
 	char node_list[NODE_NUM_MAX][NODE_WIDTH]);
+
+// output a check report of the selected parameters
+int output_report(
+	char* clushc_path,
+	char node_list[NODE_NUM_MAX][NODE_WIDTH]);
+#endif

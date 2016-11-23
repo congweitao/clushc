@@ -11,7 +11,6 @@
 #include "check.h"
 
 struct _check_node check_node;
-struct _check_item check_item[NODE_NUM_MAX];
 
 int clushc_network(
         char* clushc_path,
@@ -48,9 +47,6 @@ int clushc_network(
          remove_space(check_node.ib_opensmd);
          remove_space(check_node.ib_connection_mode);
          
-         strcpy(check_item[i].hostname, node_list[i]);
-         strcpy(check_item[i].item_content, check_node.ib_status);
-
          if((strcmp(check_node.ib_status,"ACTIVE") == 0) && (strcmp(check_node.ib_opensmd, "stopped") == 0))
               {flag_ok = "PASSED";}
          else {flag_ok = "\033[5;31mNOT PASSED\033[0m";}

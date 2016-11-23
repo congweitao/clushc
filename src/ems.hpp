@@ -1,3 +1,6 @@
+#pragma once
+#ifndef _EMS_H_
+#define _EMS_H_
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -24,4 +27,4 @@ public:
 
 
 } 
-
+#endif 

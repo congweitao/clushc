@@ -166,7 +166,7 @@ void setup_environment()
 
 void get_clushc_version()
 {
-   printf("Clushc  Version 1.0.0 update 11/2/2016\n");
+   printf("Clushc  Version %s \n",clushc_version);
 }
 
 void usage()
@@ -189,8 +189,7 @@ void usage()
    printf("  -l HOSTLIST, --hostlist HOSTLIST\n");
    printf("                        input hosts file\n");
    printf("  -i, --collect-info    collecting information from the clients\n");
-   printf("  -l HOSTLIST, --hostlist HOSTLIST\n");
-   printf("                        input hosts file\n");
+   printf("  -p, --report          outputing a check report\n");
    printf("  -n, --check-network   checking network status\n");
    printf("  -f, --check-firmware  checking firmware information\n");
    printf("  -o, --check-storage   checking storage information\n");

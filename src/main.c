@@ -16,10 +16,11 @@
 
 /* Parse Input Parameters */
 char* l_opt_arg;
-char* const short_options = "hilsbfoncv";
+char* const short_options = "hilpsbfoncv";
 struct option long_options[] = {
     { "help",           0, NULL, 'h' },
     { "collect-info",   0, NULL, 'i' },
+    { "report",         0, NULL, 'p' },
     { "hostlist",       1, NULL, 'l' },
     { "check-service",  0, NULL, 's' },
     { "check-bios",     0, NULL, 'b' },
@@ -78,6 +79,9 @@ int main(int argc, char **argv)
                system(clushc_syncfile);
                system(check_system);
                break;
+	 case 'p':
+		output_report(clushc_path,node_list);
+		break;
          case 'l':
                 clushc_nodelist = optarg;
 		unsetenv("CLUSHC_NODELIST");
