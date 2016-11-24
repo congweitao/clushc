@@ -12,11 +12,14 @@ int status[ITEM_NUM];
 /* the selected check-items */
 struct _check_item{
 	int ht;      // hyper-threading
+	int cpu;
+	int cpu_temp;
+	int mem_dimms;
+	int disk_usage;
         int load_avg; // load average
-        int cpu_used; // used cpu percentage
+	int ib_opensmd;
 	int ib_status;
 	int ib_conn_mode;
-	int mem_used_perc; // used memory percentage
 	int stack; // the stack size
 };
 
@@ -24,6 +27,8 @@ struct _check_item{
 struct _check_node{
        char* thread_per_core;
        char* cpu_model;
+       char* cpu_temp;
+       char* processors;
        char* load_avg;
        char* cpu_used;
        char* ib_status;

@@ -9,6 +9,9 @@ Sugon cluster health check
 
 Modify the "makefile" to change the <INSTALL_PATH>.
 
+make setup
+make clushc
+make install
 
 --------------------------------
 3. Running clushc

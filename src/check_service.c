@@ -3,10 +3,6 @@
  * ntpd, gridview_platform, pbs related services, etc.
  */
 
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-#include<unistd.h>
 #include "common.h"
 #include "check.h"
 

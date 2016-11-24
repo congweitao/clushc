@@ -18,7 +18,7 @@
 /* define a string length */
 #define STRING_MAX 1024
 /* define the number of selected parameter*/
-#define ITEM_NUM 7
+#define ITEM_NUM 9
 
 static char clushc_version[30]="1.0.0";
 

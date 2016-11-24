@@ -6,7 +6,7 @@ pssh -h ${CLUSHC_NODELIST} "mkdir -p /tmp/clushc/bin"  >/dev/null 2>&1
 pssh -h ${CLUSHC_NODELIST} "mkdir -p /tmp/clushc/scripts" >/dev/null 2>&1
 pssh -h ${CLUSHC_NODELIST} "mkdir -p /tmp/clushc/log" >/dev/null 2>&1
 
-echo "Try to syncing scripts to all nodes..."
+echo "Syncing Scripts to All Nodes..."
 for node in `cat ${CLUSHC_NODELIST}`
 do
    scp -r  ${CLUSHC_NODELIST}  $node:/tmp/clushc/ >/dev/null 2>&1;
