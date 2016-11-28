@@ -107,5 +107,6 @@ int clushc_firmware(
 // output a check report of the selected parameters
 int output_report(
 	char* clushc_path,
+	int   NodeNumber,
 	char node_list[NODE_NUM_MAX][NODE_WIDTH]);
 #endif

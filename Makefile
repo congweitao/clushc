@@ -22,7 +22,7 @@ setup:
 	/bin/echo "export CLUSHC_LOG=${INSTALL_PATH}/log/" >>  config/clushc_conf.sh
 	/bin/echo "export CLUSHC_CREATE_NODELIST=${INSTALL_PATH}/scripts/create_nodelist.sh" >> config/clushc_conf.sh
 	/bin/cp -a  config/clushc_conf.sh  /etc/profile.d/
-	echo "source /etc/profile.d/clushc_conf.sh to use clushc!"
+	source /etc/profile.d/clushc_conf.sh to use clushc!
 clushc:
 	${CC} -o ${BIN_PATH}/${exe} -g ${SRC_PATH}/*.c
 install:

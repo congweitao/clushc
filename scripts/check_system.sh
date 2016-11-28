@@ -157,7 +157,7 @@ echo "CPU_USED = $CPU_USED" >> $Report
 ## Ethernet Function (eth1 for me, you can edit for yours)
 ethernet() {
 NUM_ETHER_CONT=$(lspci | grep 'Ethernet controller' | wc -l)
-NAME_UP_ETHER=($(ip link show | grep 'state UP' | awk '{print $2}' | cut -d : -f 1|grep eth))
+NAME_UP_ETHER=($(ip link show | grep 'state UP' | awk '{print $2}' | cut -d : -f 1|grep e))
 ETHER_SPEED=($(ethtool ${NAME_UP_ETHER[0]} | grep "Speed:" | awk '{print $2}'))
 
 echo "NAME_UP_ETHER = $NAME_UP_ETHER" >> $Report;

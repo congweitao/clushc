@@ -42,9 +42,9 @@ int clushc_firmware(
          remove_space(check_node_fw.bios);
          remove_space(check_node_fw.bmc);
          
-         printf("[%s]->The FW of IB is : %s\n",node_list[i], check_node_fw.ib);
-         printf("\t   The FW of BIOS is : %s\n",check_node_fw.bios);
-         printf("\t   The FW of BMC is : %s\n",check_node_fw.bmc);
+         printf("[%s]    -> The FW of IB is : \t%-8s\n",node_list[i], check_node_fw.ib);
+         printf("\t      The FW of BIOS is : \t%-8s\n",check_node_fw.bios);
+         printf("\t      The FW of BMC is : \t%-8s\n",check_node_fw.bmc);
          sleep(1);
       }
    }

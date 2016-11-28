@@ -23,7 +23,7 @@ int get_nodelist(char* PathList, char NodeList[NODE_NUM_MAX][NODE_WIDTH]){
    }
    fclose(fp);
  
-   return 0;
+   return i;
 }
 
 int get_host_id(char HostName[NODE_WIDTH], char PrefixName[NODE_WIDTH]){
@@ -94,23 +94,39 @@ char* get_special_line(char* PathLog, int WhichLine){
    return item;
 }
 
-int sort_merge(const int NUM,
-               char output[NODE_NUM_MAX][NODE_WIDTH], 
-               char input[NODE_NUM_MAX][NODE_WIDTH]){
+/* ML kmeans*/
+int sort_merge(const int NodesNum, int InputList[NODE_NUM_MAX])
+{
+   int i = 0, j = 0;
+   int tmp = 0, N = 0;
+   int index = 0, count[MAX_DIMMS] ={0};
 
-      int i = 0, j = 0;
-      int nodelist[NODE_NUM_MAX];
-      char* first_item_nodename = input[0];
-      char* first_item_content = input[1];
-      char* tmp_item = NULL;
-
-      for (i = 2; i < NUM; i++){
-          
+   /* bubble sort, smallest ot biggest */
+   for(i = 0; i< NodesNum; i++)
+     for(j = 1;j < NodesNum; j++)
+      {
+         if (InputList[i] > InputList[j])
+          {
+            tmp = InputList[i];
+            InputList[i] = InputList[j];
+            InputList[j] = tmp;
+          }
       }
 
-  return 0;
-}
+   /* to find out the largest counts of dimms */
+  for(i = 1; i <= MAX_DIMMS; i++)
+  {
+    count[InputList[i]]++;
+  }
+  
+  for(i = 1; i <= MAX_DIMMS; i++)
+  {
+    if(count[i] < count[i+1])
+    index = i + 1;
+  }
 
+  return index;
+}
 
 //remove the head and tail spaces of a certain character
 char *remove_space(char *str)  

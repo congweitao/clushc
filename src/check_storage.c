@@ -52,13 +52,15 @@ int clushc_storage(
          remove_space(check_node_disk.disk_protocol);
          
 
-         printf("[%s]->MOUNT_COUNTS\tSERVER_FS\tMOUNT_POINT\t\n",node_list[i]);
-         printf("        \033[32m %4d\t%4s\t%4s\033[0m\n",atoi(check_node.nfs_mounts),
-               check_node.nfs_fsname,check_node.nfs_mntdir);
-         printf("\t->DISK NUMBER\tVENDOR\tSIZE\tUSAGE\tROTATION RATE\tPROTOCOL\n");
-         printf("    \033[32m %4s\t%4s\t%4s\t%4s\t%4s\t%4s\033[0m\n\n",
-                check_node_disk.disk_num,check_node_disk.disk_vendor,check_node_disk.disk_size,
-		check_node_disk.disk_usage,check_node_disk.disk_rate,check_node_disk.disk_protocol);
+         printf("[%s]     -> MOUNT_COUNTS --------- [%-8d]\n",node_list[i],atoi(check_node.nfs_mounts));
+         printf("\t    -> SERVER_FS ------------ [%-8s]\n",check_node.nfs_fsname);
+         printf("\t    -> MOUNT_POINT----------- [%-8s]\n",check_node.nfs_mntdir);
+         printf("\t    -> DISK NUMBER ---------- [%-8s]\n",check_node_disk.disk_num);
+         printf("\t    -> DISK VENDOR ---------- [%-8s]\n",check_node_disk.disk_vendor);
+         printf("\t    -> DISK SIZE ------------ [%-8s]\n",check_node_disk.disk_size);
+         printf("\t    -> DISK USAGE ----------- [%-8s]\n",check_node_disk.disk_usage);
+         printf("\t    -> DISK ROTATION RATE --- [%-8s]\n",check_node_disk.disk_rate);
+         printf("\t    -> DISK PROTOCOL--------- [%-8s]\n",check_node_disk.disk_protocol);
          sleep(1);
       }
    }

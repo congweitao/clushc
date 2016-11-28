@@ -13,6 +13,7 @@ struct _check_service check_service;
 
 int output_report(
         char* clushc_path,
+	int   NodeNumber,
         char node_list[NODE_NUM_MAX][NODE_WIDTH]){
    //
    int i=0, j=0;
@@ -21,9 +22,14 @@ int output_report(
    char* name_checklog=(char *)malloc(STRING_MAX);
    char load_avg_status[8]="normal";  // load average is defined as normal and  high
 
+   /* check memory bars */
+   char* membar_content[NODE_NUM_MAX][2]; 
+   get_item_content(clushc_path,"USED_DIMMS", membar_content, node_list);
+
    printf("-------------------------------------------------- \
 \033[34m Node Health Check Report \033[0m---------------------------------------------------------\n");
-   printf("             HYPER-THREADING\tLOAD-AVG\tIB_OPENSMD\tIB-STAT\t\tIB-CN-MODE\tSTACK-SIZE\tCPU-TEM\t\tDISK-USAGE\tMEMORY-DIMMS\n");
+   printf("             HYPER-THREADING\tLOAD-AVG\tIB_OPENSMD\tIB-STAT\t\tIB-CN-MODE\tSTACK-SIZE\tCPU-TEM\t\tDISK-USAGE\tMEMORY-BARS\n");
+
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
          /* setup filename and filepath */
@@ -78,7 +84,9 @@ int output_report(
 	 if(strcmp(check_service.stacksize,"unlimited") == 0) 		status[5]=0; else status[5]=1;
          if(atoi(check_node.cpu_temp) < 90) 				status[6]=0; else status[6]=1;
 	 if(atoi(check_node_disk.disk_usage) < 90)			status[7]=0; else status[7]=1;
-	 if(atoi(check_node_mem.mem_dimms_used) == 4)			status[8]=0; else status[8]=1;
+
+         /* check whether memory bar was down or not */
+	 if(atoi(membar_content[i][1]) == 4)		status[8]=0; else status[8]=1;
 
          printf("[%-6s]  ->",node_list[i]);
 	 printf("\t");

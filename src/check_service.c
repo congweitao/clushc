@@ -44,12 +44,18 @@ int clushc_service(
          remove_space(check_service.stacksize);
          remove_space(check_service.selinux);
         
-         if(atoi(check_service.oom)==2) flag_ok="OK";
-         else  flag_ok="\033[5;31m NOT OK\033[0m";
- 
-         printf("[%s]  ->  Services of OOM is: --[%s]\n",node_list[i],flag_ok);
-         printf("          Stack Size is: --------[%s]\n",check_service.stacksize);
-         printf("          SElinux is: --------[%s]\n",check_service.selinux);
+         if(atoi(check_service.oom)==2) 
+             printf("[%s]     ->  Services of OOM is: -----[%-8s]---[PASSWD]\n",node_list[i],check_service.oom);
+         else  
+             printf("[%s]     ->  Services of OOM is: -----[%-8s]---\033[31m[NOT PASSWD]\033[0m\n",node_list[i],check_service.oom);
+         if(strcmp(check_service.stacksize,"unlimited") == 0) 
+             printf("\t     ->  Stack Size is: ----------[%-8s]---[PASSWD]\n",check_service.stacksize);
+	 else
+             printf("\t     ->  Stack Size is: ----------[%-8s]---\033[31m[NOT PASSWD]\033[0m\n",check_service.stacksize);
+         if(strcmp(check_service.selinux,"disabled") == 0)
+             printf("\t     ->  SElinux is: -------------[%-8s]---[PASSWD]\n",check_service.selinux);
+	 else
+             printf("\t     ->  SElinux is: -------------[%-8s]---\033[31m[NOT PASSWD]\033[0m\n",check_service.selinux);
          sleep(1);
        }
    }

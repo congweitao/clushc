@@ -42,6 +42,7 @@ char* clushc_log;
 char* clushc_path;
 char* clushc_nodelist;
 char* clushc_create_nodelist;
+int nodes_number = 0;
 
 int main(int argc, char **argv)
 {
@@ -63,7 +64,7 @@ int main(int argc, char **argv)
 
    /* Initializing memory space, creating nodelist */
    memset(node_list,'\0',sizeof(node_list));
-   get_nodelist(clushc_nodelist, node_list);
+   nodes_number = get_nodelist(clushc_nodelist, node_list);
    
    /* Add your code in this part. */
    while((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1)
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
                system(check_system);
                break;
 	 case 'p':
-		output_report(clushc_path,node_list);
+		output_report(clushc_path,nodes_number,node_list);
 		break;
          case 'l':
                 clushc_nodelist = optarg;

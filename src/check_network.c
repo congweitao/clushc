@@ -43,15 +43,20 @@ int clushc_network(
          remove_space(check_node.ib_opensmd);
          remove_space(check_node.ib_connection_mode);
          
-         if((strcmp(check_node.ib_status,"ACTIVE") == 0) && (strcmp(check_node.ib_opensmd, "stopped") == 0))
-              {flag_ok = "PASSED";}
-         else {flag_ok = "\033[5;31mNOT PASSED\033[0m";}
-
-         printf("[%s] -> Device Name [%s]\t\t[%s]\n",node_list[i], check_node.ib_name, flag_ok);
-         printf("\tIB State ---- [%s]\n",check_node.ib_status);
-         printf("\tIB Rate ---- [%s]\n", check_node.ib_rate);
-         printf("\tIB OpenSM ---- [%s]\n",check_node.ib_opensmd);
-         printf("\tConnection Mode ---- [%s]\n",check_node.ib_connection_mode);
+         printf("[%s]    -> Device Name----------- [%-8s]\n",node_list[i], check_node.ib_name);
+         if(strcmp(check_node.ib_status,"ACTIVE") == 0)
+            printf("\t   -> IB State ------------- [%-8s] ---- [PASSWD]\n",check_node.ib_status);
+         else
+            printf("\t   -> IB State ------------- [%-8s] ---- \033[31m[NOT PASSSWD]\033[0m\n",check_node.ib_status);
+         printf("\t   -> IB Rate -------------- [%-8s]\n", check_node.ib_rate);
+         if(strcmp(check_node.ib_opensmd,"stopped") == 0)
+            printf("\t   -> IB OpenSM ------------ [%-8s]\n",check_node.ib_opensmd);
+	 else
+            printf("\t   -> IB OpenSM ------------ \033[33m[%-8s]\033[0m\n",check_node.ib_opensmd);
+	 if(strcmp(check_node.ib_connection_mode,"connected") == 0)
+            printf("\t   -> IB Connection Mode --- [%-8s]----[PASSWD]\n",check_node.ib_connection_mode);
+	 else
+            printf("\t   -> IB Connection Mode --- [%-8s]----\033[31m[NOT PASSWD]\033[0m\n",check_node.ib_connection_mode);
          sleep(1);
       }
    }
