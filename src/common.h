@@ -38,7 +38,7 @@ extern char* clushc_create_nodelist;
 int get_nodelist(char* PathList, char NodeList[NODE_NUM_MAX][NODE_WIDTH]);
 int get_host_id(char HostName[NODE_WIDTH], char PrefixName[NODE_WIDTH]);
 /* input stands for nodename and a value */
-int sort_merge(const int NodesNUM, int InputList[NODE_NUM_MAX]);
+int sort_merge(int NodesNUM, int InputList[NODE_NUM_MAX]);
 char* clushc_strcat(const char* dest, const char* src);
 char* get_special_line(char* PathLog, int WhichLine);
 int get_row_num(const char* path, const char* item);

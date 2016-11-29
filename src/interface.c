@@ -5,7 +5,7 @@
 #include "common.h"
 #include "check.h"
 
-struct _check_node check_node;
+static char* parameter = NULL;
 static int row_num = 0;
 
 int get_item_content(char* path, char* item, 
@@ -24,11 +24,13 @@ int get_item_content(char* path, char* item,
          path_checklogfile = clushc_strcat(path_checklog, name_checklog);
 
          row_num = get_row_num(path_checklogfile, item);
-         check_node.thread_per_core = get_special_line(path_checklogfile,row_num);
-         remove_space(check_node.thread_per_core);
+         if(row_num == -1) { printf("%s Information was not checked..\n",item);return -1;}     
+
+         parameter = get_special_line(path_checklogfile,row_num);
+         remove_space(parameter);
 
          ItemContent[i][0] = node_list[i];
-         ItemContent[i][1] = check_node.thread_per_core;
+         ItemContent[i][1] = parameter;
        }
     }
    return 0;
