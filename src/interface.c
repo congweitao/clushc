@@ -12,17 +12,18 @@ int get_item_content(char* path, char* item,
 
    static char* parameter = NULL;
    static int row_num = 0;
-   char* path_checklog=(char *)malloc(FILEPATH_MAX);
-   char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
-   char* name_checklog=(char *)malloc(STRING_MAX);  
-   
+   char path_checklog[STRING_MAX];
+   char path_checklogfile[STRING_MAX];
+   char name_checklog[STRING_MAX];  
+   char file_extension[24]="-checks.txt";
+ 
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
          /* setup filename and filepath */
-         path_checklog = getenv("CLUSHC_LOG");
-         name_checklog = clushc_strcat(node_list[i],"-checks.txt\0");
-         path_checklogfile = clushc_strcat(path_checklog, name_checklog);
-
+         strcpy(path_checklog, getenv("CLUSHC_LOG"));
+         clushc_strcat(name_checklog, node_list[i],file_extension);
+         clushc_strcat(path_checklogfile, path_checklog, name_checklog);
+        
          row_num = get_row_num(path_checklogfile, item);
          if(row_num == -1) { printf("%s Information was not checked..\n",item);return -1;}     
 

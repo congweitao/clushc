@@ -16,7 +16,7 @@
 /* define the filepath length */
 #define FILEPATH_MAX 512
 /* define a string length */
-#define STRING_MAX 512
+#define STRING_MAX 1024
 /* define the number of selected parameter*/
 #define ITEM_NUM 9
 /* define the max number of dimms */
@@ -39,7 +39,7 @@ int get_nodelist(char* PathList, char NodeList[NODE_NUM_MAX][NODE_WIDTH]);
 int get_host_id(char HostName[NODE_WIDTH], char PrefixName[NODE_WIDTH]);
 /* input stands for nodename and a value */
 int sort_merge(int NodesNUM, int InputList[NODE_NUM_MAX]);
-char* clushc_strcat(const char* dest, const char* src);
+void clushc_strcat(char* target, const char* dest, const char* src);
 char* get_special_line(char* PathLog, int WhichLine);
 int get_row_num(const char* path, const char* item);
 //remove the head and tail spaces

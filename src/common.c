@@ -5,7 +5,7 @@
 
 #include"common.h"
 
-#define MAX_SIZE 100
+#define MAX_SIZE 1024
 
 int get_nodelist(char* PathList, char NodeList[NODE_NUM_MAX][NODE_WIDTH]){
    FILE* fp;
@@ -43,13 +43,18 @@ int get_host_id(char HostName[NODE_WIDTH], char PrefixName[NODE_WIDTH]){
   return atoi(id_num);
 }
 
-char* clushc_strcat(const char* dest, const char* src){
-  char* str=malloc(sizeof(char)*(strlen(dest)+strlen(src)));
-
-  strcpy(str,dest);
-  if(str[strlen(str)-1] == '\n') str[strlen(str)-1] = '\0';
-  
-  return  strcat(str,src);
+void clushc_strcat(char* target, const char* dest, const char* src){
+     int i = 0, j = 0;
+     
+     strcpy(target,dest);
+     while(target[i] != '\0' ) i++;
+     while(src[j] != '\0' ) 
+     {
+        target[i] = src[j];
+        i++;
+        j++;
+     }
+     target[i] = '\0';
 }
 
 char* get_special_line(char* PathLog, int WhichLine){
@@ -150,7 +155,7 @@ int get_row_num(const char* path, const char* item){
     FILE* fp;
     int line = 0;   
     char* str = (char *)malloc(MAX_SIZE);  
-  
+ 
     fp = fopen(path, "r");
     if(fp == NULL){
 	printf("Sys log could not be opened.\n");
@@ -160,13 +165,13 @@ int get_row_num(const char* path, const char* item){
     while(!feof(fp)){
          fgets(str, MAX_SIZE, fp);
   	 if(!strstr(str, item)) line++;
-         else return ++line;
+         else 
+         {
+            free(str);
+            fclose(fp);
+            return ++line;
+         }
       }
-    
-   free(str);
-   fclose(fp);
-   
-   return -1;
 }
 
 
