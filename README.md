@@ -23,3 +23,4 @@ clushc --help
 4. ChangeLog
 
 16.11.08  add checking local diskes healthy status.
+16.12.10  fix bug : memory leak, incorrect malloc use
