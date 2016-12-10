@@ -60,8 +60,7 @@ char* get_special_line(char* PathLog, int WhichLine){
    char* item_tmp=malloc(100);
 
    if( WhichLine == -1 ) {
-      item = "NO INFO";
-      return item;
+      return "NO INFO";
    }   
 
    fp_log = fopen(PathLog,"r"); 
@@ -163,7 +162,8 @@ int get_row_num(const char* path, const char* item){
   	 if(!strstr(str, item)) line++;
          else return ++line;
       }
-
+    
+   free(str);
    fclose(fp);
    
    return -1;
@@ -173,14 +173,14 @@ int get_row_num(const char* path, const char* item){
 void setup_environment()
 {
    /* Setup Clushc environment variables */
-   clushc_path = getenv("CLUSHC_PATH");
-   clushc_nodelist = getenv("CLUSHC_NODELIST");
-   clushc_scpfile = getenv("CLUSHC_SCP");
-   clushc_syncdo =  getenv("CLUSHC_SYNCDO");
-   clushc_syncfile = getenv("CLUSHC_SYNCFILE");
-   check_system = getenv("CLUSHC_CHECK_SYSTEM");
-   clushc_log = getenv("CLUSHC_LOG");
-   clushc_create_nodelist = getenv("CLUSHC_CREATE_NODELIST");
+   strcpy(clushc_path, getenv("CLUSHC_PATH"));
+   strcpy(clushc_nodelist, getenv("CLUSHC_NODELIST"));
+   strcpy(clushc_scpfile, getenv("CLUSHC_SCP"));
+   strcpy(clushc_syncdo,  getenv("CLUSHC_SYNCDO"));
+   strcpy(clushc_syncfile, getenv("CLUSHC_SYNCFILE"));
+   strcpy(check_system, getenv("CLUSHC_CHECK_SYSTEM"));
+   strcpy(clushc_log, getenv("CLUSHC_LOG"));
+   strcpy(clushc_create_nodelist, getenv("CLUSHC_CREATE_NODELIST"));
 }
 
 void get_clushc_version()

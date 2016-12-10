@@ -28,6 +28,8 @@ clushc:
 install:
 	/bin/mkdir -p ${INSTALL_PATH}
 	/bin/mkdir -p ${INSTALL_PATH}/log
+	/bin/mkdir -p ${INSTALL_PATH}/postgresql/data
+	/bin/mkdir -p ${INSTALL_PATH}/postgresql/log
 	/bin/mkdir -p ${INSTALL_PATH}/config
 	/bin/cp -a bin ${INSTALL_PATH}
 	/bin/cp -a scripts ${INSTALL_PATH}

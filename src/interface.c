@@ -5,13 +5,13 @@
 #include "common.h"
 #include "check.h"
 
-static char* parameter = NULL;
-static int row_num = 0;
-
 int get_item_content(char* path, char* item, 
                      char* ItemContent[NODE_NUM_MAX][2], char NodeList[NODE_NUM_MAX][NODE_WIDTH])
 {
    int i = 0;
+
+   static char* parameter = NULL;
+   static int row_num = 0;
    char* path_checklog=(char *)malloc(FILEPATH_MAX);
    char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
    char* name_checklog=(char *)malloc(STRING_MAX);  

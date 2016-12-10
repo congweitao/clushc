@@ -23,7 +23,7 @@ int output_report(
 \033[34m Node Health Check Report \033[0m---------------------------------------------------------\n");
    printf("             HYPER-THREADING\tLOAD-AVG\tIB_OPENSMD\tIB-STAT\t\tIB-CN-MODE\tSTACK-SIZE\tCPU-TEM\t\tDISK-USAGE\tMEMORY-BARS\n");
 
-   for(i = 0; i< NODE_NUM_MAX; i++){
+   for(i = 0; i< NodeNumber; i++){
       if(strlen(node_list[i]) != 0){
          /*  check hyper-threading cofiguration */ 
 	 get_item_content(clushc_path,"THREAD_PER_CORE", item_content, node_list);
@@ -34,7 +34,7 @@ int output_report(
 	 get_item_content(clushc_path,"LOAD_AVG", item_content, node_list);
          if((atof(item_content[i][1]) - atoi(cpus)) > 0) strcpy(load_avg_status,"high");
          else strcpy(load_avg_status,"normal");
-	 if(strcmp(load_avg_status,"normal") == 0) 			status[1]=0; else status[1]=1;
+	 if(strcmp(load_avg_status,"normal") == 0) 		status[1]=0; else status[1]=1;
 	 get_item_content(clushc_path,"OPENSMD", item_content, node_list);
 	 if(strcmp(item_content[i][1],"stopped") == 0) 		status[2]=0; else status[2]=1;
 	 get_item_content(clushc_path,"IB_STATE", item_content, node_list);

@@ -32,41 +32,31 @@ struct option long_options[] = {
     {         0,        0,    0,  0  },
 };
 
-/* environment variables */
+/* Basic Environment Variables Setup */
 char  node_list[NODE_NUM_MAX][NODE_WIDTH];
-char* check_system;
-char* clushc_scpfile;
-char* clushc_syncdo;
-char* clushc_syncfile;
-char* clushc_log;
-char* clushc_path;
-char* clushc_nodelist;
-char* clushc_create_nodelist;
-int nodes_number = 0;
+char  check_system[STRING_MAX];
+char  clushc_scpfile[STRING_MAX];
+char  clushc_syncdo[STRING_MAX];
+char  clushc_syncfile[STRING_MAX];
+char  clushc_log[STRING_MAX];
+char  clushc_path[STRING_MAX];
+char  clushc_nodelist[STRING_MAX];
+char  clushc_create_nodelist[STRING_MAX];
+int   nodes_number = 0;
 
 int main(int argc, char **argv)
 {
    int opt;
    FILE* fp_conf;
 
-   /*  Initializing Parameter */
-   check_system=(char *)malloc(FILEPATH_MAX);
-   clushc_scpfile=(char *)malloc(FILEPATH_MAX);
-   clushc_syncdo=(char *)malloc(FILEPATH_MAX);
-   clushc_syncfile=(char *)malloc(FILEPATH_MAX);
-   clushc_log=(char *)malloc(FILEPATH_MAX);
-   clushc_path=(char *)malloc(FILEPATH_MAX);
-   clushc_nodelist=(char *)malloc(FILEPATH_MAX);
-   clushc_create_nodelist=(char *)malloc(FILEPATH_MAX);
-
-   /* Setup Clushc environment variables */ 
+   /* Setup Clushc Environment Variables */ 
    setup_environment();
 
-   /* Initializing memory space, creating nodelist */
+   /* Initializing Memory Space, Creating Nodelist */
    memset(node_list,'\0',sizeof(node_list));
    nodes_number = get_nodelist(clushc_nodelist, node_list);
    
-   /* Add your code in this part. */
+   /* Add Your Code in this part. */
    while((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1)
    {
       switch(opt)
@@ -84,7 +74,7 @@ int main(int argc, char **argv)
 		output_report(clushc_path,nodes_number,node_list);
 		break;
          case 'l':
-                clushc_nodelist = optarg;
+                strcpy(clushc_nodelist, optarg);
 		unsetenv("CLUSHC_NODELIST");
                 setenv("CLUSHC_NODELIST",clushc_nodelist,1);
                 break;

@@ -6,45 +6,25 @@
 #include "common.h"
 #include "check.h"
 
-struct _check_node check_node;
-struct _check_node_fw check_node_fw;
-
-static int row_num_ib = 0, row_num_bios = 0, row_num_bmc = 0;
-
-
 int clushc_firmware(
         char* clushc_path,
-        char node_list[NODE_NUM_MAX][NODE_WIDTH]){
-   //
+        char node_list[NODE_NUM_MAX][NODE_WIDTH])
+{
    int i=0;
-   char* flag_ok="OK";
-   char* flag_hyper_threading=(char *)malloc(8);
-   char* path_checklog=(char *)malloc(FILEPATH_MAX);
-   char* path_checklogfile=(char *)malloc(FILEPATH_MAX);
-   char* name_checklog=(char *)malloc(STRING_MAX);
+   char* item_content[NODE_NUM_MAX][2];
 
-   printf("----\033[34m Cluster Health Checking FirmWare \033[0m----\n");
+   printf("----------\033[34m Cluster Health Checking Firmware \033[0m----------\n");
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
-         /* preparing the nodes checking log filename, eq., filename and filepath */
-         path_checklog = getenv("CLUSHC_LOG");
-         name_checklog = clushc_strcat(node_list[i],"-checks.txt\0");
-         path_checklogfile = clushc_strcat(path_checklog, name_checklog);
-          
-         row_num_ib = get_row_num(path_checklogfile, "IB_FW");;
-         row_num_bios = get_row_num(path_checklogfile, "BIOS_FW");;
-         row_num_bmc = get_row_num(path_checklogfile, "BMC_FW");;
-
-         check_node_fw.ib = get_special_line(path_checklogfile,row_num_ib);
-         check_node_fw.bios = get_special_line(path_checklogfile,row_num_bios);
-         check_node_fw.bmc = get_special_line(path_checklogfile,row_num_bmc);
-         remove_space(check_node_fw.ib);
-         remove_space(check_node_fw.bios);
-         remove_space(check_node_fw.bmc);
-         
-         printf("[%s]    -> The FW of IB is : \t%-8s\n",node_list[i], check_node_fw.ib);
-         printf("\t      The FW of BIOS is : \t%-8s\n",check_node_fw.bios);
-         printf("\t      The FW of BMC is : \t%-8s\n",check_node_fw.bmc);
+	 /* infiniband firmware */
+	 get_item_content(clushc_path,"IB_FW", item_content, node_list);
+         printf("[%-6s]   -> The firmware of HCA card ---- %-16s\n",node_list[i],item_content[i][1]);
+	 /* bios firmware */
+	 get_item_content(clushc_path,"BIOS_FW", item_content, node_list);
+         printf("           -> The firmware of BIOS is ----  %-16s\n",item_content[i][1]);
+	 /* bios firmware */
+	 get_item_content(clushc_path,"BMC_FW", item_content, node_list);
+         printf("           -> The firmware of BMC is ---- %-16s\n",item_content[i][1]);
          sleep(1);
       }
    }
