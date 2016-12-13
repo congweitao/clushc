@@ -18,7 +18,7 @@ int clushc_network(
    printf(" HOSTNAME |  IB INTERFACE |  IB STATE |  IB RATE |  OPENSMD STATE | CONN MODE | STATUS \n");
    for(i = 0; i< NODE_NUM_MAX; i++){
       if(strlen(node_list[i]) != 0){
-         get_item_content(clushc_path,"NAME_UP_IB", item_content, node_list); 
+         get_item_content(clushc_path,"IB_INTERFACE", item_content, node_list); 
          printf("%-8s     %-12s",node_list[i], item_content[i][1]);
 
          get_item_content(clushc_path,"IB_STATE", item_content, node_list); 

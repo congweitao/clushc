@@ -175,6 +175,7 @@ fi
 NUM_IB_CONT=$(lspci | grep 'Mellanox' | wc -l)
 IB_FW=($(cat /sys/class/infiniband/mlx*/fw_ver))
 NAME_UP_IB=($(ip link show | grep 'state UP' | awk '{print $2}' | cut -d : -f 1|grep ib))
+IB_INTERFACE=($(cat /sys/class/infiniband/mlx5_0/device/net/ib*/uevent | grep INTERFACE|awk -F '=' '{print $2}'))
 IB_HCA_TYPE=($(cat /sys/class/infiniband/mlx*/hca_type))
 IB_DRIVER=`ofed_info | grep OFED-`
 IB_STATE=($(cat /sys/class/infiniband/*/ports/1/state | awk -F ":" '{print $2}'))
@@ -187,6 +188,7 @@ CONNECTION_MODE=($(cat /sys/class/net/ib*/mode))
 echo "NUM_IB_CONT = $NUM_IB_CONT" >> $Report
 echo "IB_FW = $IB_FW" >> $Report
 echo "NAME_UP_IB = $NAME_UP_IB" >> $Report
+echo "IB_INTERFACE = $IB_INTERFACE" >> $Report
 echo "IB_STATE = $IB_STATE" >> $Report
 echo "IB_RATE = $IB_RATE" >> $Report
 echo "IB_HCA_TYPE = $IB_HCA_TYPE" >> $Report
