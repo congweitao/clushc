@@ -25,13 +25,20 @@ int get_item_content(char* path, char* item,
          clushc_strcat(path_checklogfile, path_checklog, name_checklog);
         
          row_num = get_row_num(path_checklogfile, item);
-         if(row_num == -1) { printf("%s Information was not checked..\n",item);return -1;}     
+         if(row_num == -1) 
+           { 
+              ItemContent[i][0] = node_list[i];
+              ItemContent[i][1] = "NOT CHECKED";
+//              printf("%s Information was not checked..\n",item);
+           }     
+	 else
+           {
+             parameter = get_special_line(path_checklogfile,row_num);
+             remove_space(parameter);
 
-         parameter = get_special_line(path_checklogfile,row_num);
-         remove_space(parameter);
-
-         ItemContent[i][0] = node_list[i];
-         ItemContent[i][1] = parameter;
+             ItemContent[i][0] = node_list[i];
+             ItemContent[i][1] = parameter;
+           }
        }
     }
    return 0;

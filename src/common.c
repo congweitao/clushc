@@ -158,7 +158,7 @@ int get_row_num(const char* path, const char* item){
  
     fp = fopen(path, "r");
     if(fp == NULL){
-	printf("Sys log could not be opened.\n");
+//	printf("Sys log could not be opened.\n");
 	return -1;
     }
     
