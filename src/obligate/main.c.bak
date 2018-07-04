@@ -1,0 +1,82 @@
+/*
+ * Script: Node Health Script 
+ * Created By: weitao cong (congwt@sugon.com) www.sugon.com
+ * Created On: 29th August 2016
+ * Detail: To Check Single Node Health. 
+ * Checks: loadavg, memory, cpu, ethernet, infiniband, cpu test, nfs mounts, nis, mcelog
+ * Functions: You can load/unload any function you need to run or not to run.
+ * License: GPL 
+ *
+ */
+
+#include <unistd.h>
+#include <getopt.h>
+#include "function.h"
+#include "check.h"
+
+int main(int argc, char **argv)
+{
+   FILE* fp_conf;
+
+  char node_list[NODE_NUM_MAX][NODE_WIDTH];
+  char* check_system=(char *)malloc(FILEPATH_MAX);
+  char* clushc_scpfile=(char *)malloc(FILEPATH_MAX);
+  char* clushc_syncdo=(char *)malloc(FILEPATH_MAX);
+  char* clushc_syncfile=(char *)malloc(FILEPATH_MAX);
+  char* clushc_log=(char *)malloc(FILEPATH_MAX);
+  char* clushc_path=(char *)malloc(FILEPATH_MAX);
+  char* clushc_nodelist=(char *)malloc(FILEPATH_MAX);
+  char* clushc_create_nodelist=(char *)malloc(FILEPATH_MAX);
+
+   /* Setup Clushc environment variables */ 
+   clushc_path = getenv("CLUSHC_PATH");
+   clushc_nodelist = getenv("CLUSHC_NODELIST");
+   clushc_scpfile = getenv("CLUSHC_SCP");
+   clushc_syncdo =  getenv("CLUSHC_SYNCDO");
+   clushc_syncfile = getenv("CLUSHC_SYNCFILE");
+   check_system = getenv("CLUSHC_CHECK_SYSTEM");
+   clushc_log = getenv("CLUSHC_LOG");
+   clushc_create_nodelist = getenv("CLUSHC_CREATE_NODELIST");
+ 
+   /* initializing memory space, create nodelist */
+   memset(node_list,'\0',sizeof(node_list));
+   get_nodelist(clushc_nodelist, node_list);
+   
+   /* Add your code in this part. */
+   
+   /*  Parse Input Parameters*/
+   
+   if(argc == 2 ){
+       switch(parse_args(argv[1])){
+             case 0:
+                    system(clushc_scpfile);
+                    system(clushc_syncdo);
+                    system(clushc_syncfile);
+                    system(check_system);
+                    break;
+      	     case 1:
+	            clushc_network(clushc_path, node_list);
+	            break;
+	     case 2:
+	            clushc_storage(clushc_path, node_list);
+                    break;
+	     case 3:
+	            clushc_firmware(clushc_path, node_list);
+                    break;
+	     case 4:
+	            clushc_bios(clushc_path, node_list);
+                    break;
+	     case 5:
+	            clushc_service(clushc_path, node_list);
+                    break;
+             case 8:
+                    usage();
+                    break;
+	     default:
+                    usage();
+       }
+    }
+   else usage();
+
+   return 0;
+}

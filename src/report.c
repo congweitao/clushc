@@ -20,8 +20,10 @@ int output_report(
    int i_list[NODE_NUM_MAX]; 
 
    printf("-------------------------------------------------- \
-\033[34m Node Health Check Report \033[0m---------------------------------------------------------\n");
-   printf(" HOSTNAME\t HYPER-THREADING\tLOAD-AVG\tIB_OPENSMD\tIB-STAT\t\tIB-CN-MODE\tSTACK-SIZE\tCPU-TEM\t\tDISK-USAGE\tMEMORY-BARS\n");
+	    \033[34m Node Health Check Report \033[0m	      \
+	   -------------------------------------------------- \n");
+   printf(" HOSTNAME\t HYPER-THREADING\tLOAD-AVG\tIB_OPENSMD\t \
+	    IB-STAT\t\tIB-CN-MODE\tSTACK-SIZE\tCPU-TEM\t\tDISK-USAGE\tMEMORY-BARS\n");
 
    for(i = 0; i< NodeNumber; i++){
       if(strlen(node_list[i]) != 0){
