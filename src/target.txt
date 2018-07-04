@@ -1,2 +1,0 @@
-memory		cpu_temp		load_avg		nfs		network		alarm
-24		40			1			2		active		no
